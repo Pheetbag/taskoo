@@ -1,0 +1,21 @@
+
+<nav class="navbar navbar-dark bg-dark mb-5">
+  <a class="navbar-brand" href="#">Taskoo</a>
+  <span class="navbar-text">Get your work done.</span>
+</nav>
+
+<div class="container">
+
+    <app-creation-form (createdResult)="addTask($event)" [lastTaskPosition]="tasks[0]?.position_index"></app-creation-form>
+
+    <hr>
+
+  <ng-template [ngIf]="tasks.length">
+    <div>
+      <app-task-card *ngFor="let task of tasks" [task]="task" (deletedResult)="removeTask($event)"></app-task-card>
+    </div>
+
+  </ng-template>
+
+  <br>
+</div>

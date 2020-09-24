@@ -1,0 +1,37 @@
+<div class="card mt-5" [ngClass]="{isSubmittingTask: submitting === true}">
+  <div class="card-body" *ngIf="onEditMode === false; else elseFormBlock">
+    <h5 class="card-title">{{ task.title }}</h5>
+    <p class="card-text" *ngIf="task.description">{{ task.description }}</p>
+    <div *ngIf="submitting; else elseBlock">
+      <div class="spinner-border text-secondary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <ng-template #elseBlock>
+      <a href="#" class="card-link" (click)="editTask()">Editar</a>
+      <a href="#" class="card-link text-danger" (click)="deleteTask()">Eliminar</a>
+    </ng-template>
+  </div>
+  <ng-template #elseFormBlock>
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()" class="mb-5">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Title*</label>
+          <input [(ngModel)]="title" maxlength="140" type="text" name="title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Description (optional)</label>
+          <textarea  [(ngModel)]="description" maxlength="300" name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+
+        <button class="btn btn-primary" type="button" *ngIf="submitting; else elseLoadingBlock" disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          <span class="sr-only">Updating...</span>
+        </button>
+        <ng-template #elseLoadingBlock>
+          <button type="submit" class="btn btn-primary">Update</button>
+        </ng-template>
+      </form>
+    </div>
+  </ng-template>
+</div>
